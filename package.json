@@ -1,11 +1,10 @@
 {
   "name": "zcal-scheduler",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "ZCal Scheduler",
   "author": "eliranmal@gmail.com",
   "main": "dist/lib/zcal-scheduler.min.js",
-  "private": false,
-  "license": "MIT",
+  "private": true,
   "scripts": {
     "prepublishOnly": "npm run build",
     "dev": "npm-run-all --parallel dev:lib dev:docs",
