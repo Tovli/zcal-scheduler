@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import Buefy from 'buefy'
-Vue.use(Buefy)
+import Buefy from 'buefy';
 import App from './app';
-
 import './styles/app.scss';
+
+Vue.use(Buefy);
 
 Vue.config.productionTip = false;
 
