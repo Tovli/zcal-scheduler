@@ -3,18 +3,41 @@
     <!--<img src="./assets/logo.png">-->
     <h1>zcal scheduler</h1>
     <div class="scheduler-box">
-      <scheduler></scheduler>
+      <scheduler v-on:addTask="showTaskModal"></scheduler>
     </div>
+    <modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">{{modalHeader}}</h3>
+      <div slot="body">{{modalBody}}</div>
+      <!--<footer slot="footer">{{modalFooter}}</footer>-->
+    </modal>
   </div>
 </template>
 
 <script>
   import Scheduler from './components/scheduler';
+  import Modal from './components/modal';
 
   export default {
     name: 'app',
     components: {
       Scheduler,
+      Modal,
+    },
+    data() {
+      return {
+        showModal: false,
+        modalHeader: '',
+        modalBody: '',
+        modalFooter: '',
+      };
+    },
+    methods: {
+      showTaskModal({ header, body, footer }) {
+        this.showModal = true;
+        this.modalHeader = header;
+        this.modalBody = body;
+        this.modalFooter = footer;
+      },
     },
   };
 </script>

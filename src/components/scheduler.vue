@@ -1,6 +1,8 @@
 <template>
   <div class="scheduler">
-    <div v-for="day in days" class="day" v-bind:class="{ isToday: day.isToday, isEmpty: day.pad }">
+    <div v-for="day in days" class="day"
+         v-bind:class="{ isToday: day.isToday, isEmpty: day.pad }"
+         v-on:click="addTask(day)">
       <span class="date">{{day.date}}</span>
       <span class="dayOfTheWeek">{{day.dayOfTheWeek}}</span>
     </div>
@@ -11,7 +13,9 @@
   import { WEEK_DAYS, dayCountInMonth, dayOfTheWeek } from '../services/time-ranger';
 
   export default {
+
     name: 'scheduler',
+
     data() {
       const now = new Date();
       const dayCount = dayCountInMonth(now);
@@ -26,9 +30,9 @@
           return entry;
         });
 
+      // pad with empty blocks, for week alignment
       const firstDayIndex = WEEK_DAYS.findIndex(day => day === days[0].dayOfTheWeek);
       const lastDayIndex = WEEK_DAYS.findIndex(day => day === days[days.length - 1].dayOfTheWeek);
-      // pad with empty blocks, for week alignment
       for (let i = 0; i < firstDayIndex; i += 1) {
         days.unshift({ pad: true });
       }
@@ -40,6 +44,17 @@
         days,
       };
     },
+
+    methods: {
+      addTask(day) {
+        this.$emit('addTask', {
+          header: 'add task',
+          body: `add a new task for ${day.dayOfTheWeek} the ${day.date}'th.`,
+          footer: 'alright',
+        });
+      },
+    },
+
   };
 </script>
 
@@ -64,6 +79,7 @@
     background-color: #fafafa;
     border-bottom: 1px solid skyblue;
     border-right: 1px solid skyblue;
+    cursor: pointer;
   }
 
   .day.isEmpty:before {
@@ -74,7 +90,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #eee;
+    background-color: #f6f6f6;
   }
 
   .day .date {
